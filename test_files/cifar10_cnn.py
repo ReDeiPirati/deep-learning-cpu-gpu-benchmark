@@ -1,11 +1,8 @@
-'''Train a simple deep CNN on the CIFAR10 small images dataset.
-
-GPU run command with Theano backend (with TensorFlow, the GPU is automatically used):
-    THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatx=float32 python cifar10_cnn.py
+"""Train a simple deep CNN on the CIFAR10 small images dataset.
 
 It gets down to 0.65 test logloss in 25 epochs, and down to 0.55 after 50 epochs.
 (it's still underfitting at that point, though).
-'''
+"""
 
 from __future__ import print_function
 import keras
@@ -16,16 +13,16 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()
+logger = EpochStatsLogger()  # Logger
 
-
+# Hyper-parameters
 batch_size = 32
 num_classes = 10
 epochs = 20
 data_augmentation = True
 
 # The data, shuffled and split between train and test sets:
-(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+(x_train, y_train), (x_test, y_test) = cifar10.load_data()  # CIFAR-10 image classification
 print('x_train shape:', x_train.shape)
 print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
@@ -34,6 +31,10 @@ print(x_test.shape[0], 'test samples')
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
+# MODEL
+# Conv(32,3,3)[ReLU] -> Conv(32,3,3)[ReLU] -> MaxPool(2,2)[Dropout 0.25] ->
+# Conv(64,3,3)[ReLU] -> Conv(64,3,3)[ReLU] -> MaxPool(2,2)[Dropout 0.25] ->
+# FC(_, 512)[ReLU][Dropout 0.5] -> FC(512, 10)[Softmax]
 model = Sequential()
 
 model.add(Conv2D(32, (3, 3), padding='same',
@@ -61,11 +62,12 @@ model.add(Activation('softmax'))
 # initiate RMSprop optimizer
 opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
 
-# Let's train the model using RMSprop
+# Let's train the model using RMSprop and CEE as loss_fn
 model.compile(loss='categorical_crossentropy',
               optimizer=opt,
               metrics=['accuracy'])
 
+# type and normalize
 x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
 x_train /= 255

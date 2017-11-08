@@ -1,4 +1,4 @@
-'''This example demonstrates the use of fasttext for text classification
+"""This example demonstrates the use of fasttext for text classification
 
 Based on Joulin et al's paper:
 
@@ -8,7 +8,7 @@ https://arxiv.org/abs/1607.01759
 Results on IMDB datasets with uni and bi-gram embeddings:
     Uni-gram: 0.8813 test accuracy after 5 epochs. 8s/epoch on i7 cpu.
     Bi-gram : 0.9056 test accuracy after 5 epochs. 2s/epoch on GTx 980M gpu.
-'''
+"""
 
 from __future__ import print_function
 import numpy as np
@@ -21,7 +21,7 @@ from keras.layers import GlobalAveragePooling1D
 from keras.datasets import imdb
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()
+logger = EpochStatsLogger()  # Logger
 
 
 def create_ngram_set(input_list, ngram_value=2):
@@ -65,6 +65,7 @@ def add_ngram(sequences, token_indice, ngram_range=2):
 
     return new_sequences
 
+# Hyper-parameters
 # Set parameters:
 # ngram_range = 2 will add bi-grams features
 ngram_range = 2
@@ -74,7 +75,7 @@ batch_size = 32
 embedding_dims = 50
 epochs = 5
 
-print('Loading data...')
+print('Loading data...')  # IMDB Movie Sentiment Classification Task
 (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features)
 print(len(x_train), 'train sequences')
 print(len(x_test), 'test sequences')
@@ -113,6 +114,8 @@ print('x_train shape:', x_train.shape)
 print('x_test shape:', x_test.shape)
 
 print('Build model...')
+# MODEL
+# Embedding(20000, 50) -> GlobalAveragePooling1D() -> FC(50, 1)[Sigmoid]
 model = Sequential()
 
 # we start off with an efficient embedding layer which maps
@@ -128,6 +131,7 @@ model.add(GlobalAveragePooling1D())
 # We project onto a single unit output layer, and squash it with a sigmoid:
 model.add(Dense(1, activation='sigmoid'))
 
+# BCEE, ADAM
 model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])

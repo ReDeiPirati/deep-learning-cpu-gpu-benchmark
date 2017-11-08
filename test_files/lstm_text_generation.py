@@ -1,4 +1,4 @@
-'''Example script to generate text from Nietzsche's writings.
+"""Example script to generate text(char-level) from Nietzsche's writings.
 
 At least 20 epochs are required before the generated text
 starts sounding coherent.
@@ -8,7 +8,7 @@ networks are quite computationally intensive.
 
 If you try this script on new data, make sure your corpus
 has at least ~100k characters. ~1M is better.
-'''
+"""
 
 from __future__ import print_function
 from keras.models import Sequential
@@ -21,7 +21,7 @@ import random
 import sys
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()
+logger = EpochStatsLogger()  # Logger
 
 
 path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
@@ -51,7 +51,8 @@ for i, sentence in enumerate(sentences):
         X[i, t, char_indices[char]] = 1
     y[i, char_indices[next_chars[i]]] = 1
 
-
+# MODEL
+# LSTM -> FC()[softmax]
 # build the model: a single LSTM
 print('Build model...')
 model = Sequential()
@@ -59,6 +60,7 @@ model.add(LSTM(128, input_shape=(maxlen, len(chars)), implementation=2))
 model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
+# CEE, RMSprop
 optimizer = RMSprop(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
