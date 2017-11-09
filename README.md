@@ -4,7 +4,7 @@ Repository to benchmark the performance of Cloud CPUs vs. Cloud GPUs on TensorFl
 
 ## Usage
 
-`floydhub_keras_cpu_gpu_benchmark.py` contains the launcher script for running the complete benchmark on FH.
+`floydhub_keras_cpu_gpu_benchmark.py` contains the launcher script for running the complete benchmark on FH. (You have to be logged on FloydHub before you run it)
 
 `/test_files` contains the test files.
 
@@ -12,11 +12,13 @@ Repository to benchmark the performance of Cloud CPUs vs. Cloud GPUs on TensorFl
 
 `/analysis` contains the Jupyter Notebook of the logs used to create the interactive data visualizations.
 
+## TODO
+
+See the project page: [here](https://github.com/ReDeiPirati/deep-learning-cpu-gpu-benchmark/projects).
+
 ## Credits
 
 Max Woolf ([@minimaxir](http://minimaxir.com))
-
-*Max's open-source projects are supported by his [Patreon](https://www.patreon.com/minimaxir). If you found this project helpful, any monetary contributions to the Patreon are appreciated and will be put to good creative use.*
 
 ## License
 
