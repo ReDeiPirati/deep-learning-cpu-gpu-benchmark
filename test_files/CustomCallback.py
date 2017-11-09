@@ -22,16 +22,24 @@ class EpochStatsLogger(Callback):
 		if not os.path.exists('/output/logs/{}'.format(sys.argv[1])):
 			os.makedirs('/output/logs/{}'.format(sys.argv[1]))
 
+		# sys.argv[2] = platform (fh, aws, gce)
+		if not os.path.exists('/output/logs/{}/{}'.format(sys.argv[2])):
+			os.makedirs('/output/logs/{}/{}'.format(sys.argv[2]))
+
 	"""Log stats during training"""
 	def on_train_begin(self, logs={}):
-		"""Create Log file, set Keras backend(default: TF) and prepare Log file columns name(stats)"""
+		"""Create Log file, set Keras backend(default: TF) and prepare
+		Log file columns name(stats)"""
 		filename = os.path.basename(sys.argv[0])[:-3]
 		backend = K.backend()
 		# Save Log in the /output folder(FH spec)
-		self.f = open('/output/logs/{}/{}_{}.csv'.format(sys.argv[1], filename, backend), 'w')
+		self.f = open('/output/logs/{}/{}/{}_{}.csv'.format(sys.argv[1],
+															sys.argv[2],
+															filename,
+															backend), 'w')
 		self.log_writer = csv.writer(self.f)
 		self.log_writer.writerow(['epoch', 'elapsed', 'loss',
-															'acc', 'val_loss', 'val_acc'])
+								'acc', 'val_loss', 'val_acc'])
 
 	def on_train_end(self, logs={}):
 		"""Close Log file descriptor on train end"""

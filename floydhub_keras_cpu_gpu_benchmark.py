@@ -31,10 +31,10 @@ for test_file in test_files:
 		message = "{}_{}".format(test_file[:-3], platform)
 		# Command Template
 		# floyd run --env .. --(gpu|cpu) --message testfile_plat
-		# "python test/script (cpu|gpu)"
+		# "python test/script (cpu|gpu) fh"
 		command = floyd_cmd + \
 			" --{p} --message {m} ".format(p=platform, m=message) + \
-			"python test_files/{} {}".format(test_file, platform)
+			"python test_files/{} {} fh".format(test_file, platform)
 
 		# Command to run
 		print(command)
