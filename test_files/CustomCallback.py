@@ -20,17 +20,18 @@ class EpochStatsLogger(Callback):
 			#os.makedirs('/output/logs')
 			os.makedirs('logs')
 
+		if not os.path.exists('logs/aws'):
+			os.makedirs('logs/aws')
+
 		# sys.argv[1] = platform (cpu, gpu)
 		#if not os.path.exists('/output/logs/{}'.format(sys.argv[1])):
 			#os.makedirs('/output/logs/{}'.format(sys.argv[1]))
-		if not os.path.exists('logs/{}'.format(sys.argv[1])):
-			os.makedirs('logs/{}'.format(sys.argv[1]))
+		if not os.path.exists('logs/aws/{}'.format(sys.argv[1])):
+			os.makedirs('logs/aws/{}'.format(sys.argv[1]))
 
 		# sys.argv[2] = platform (fh, aws, gce)
 		# if not os.path.exists('/output/logs/{}/{}'.format(sys.argv[2])):
 		# 	os.makedirs('/output/logs/{}/{}'.format(sys.argv[2]))
-		if not os.path.exists('logs/{}/{}'.format(sys.argv[2])):
-			os.makedirs('logs/{}/{}'.format(sys.argv[2]))
 
 	"""Log stats during training"""
 	def on_train_begin(self, logs={}):
@@ -43,8 +44,7 @@ class EpochStatsLogger(Callback):
 		# 													sys.argv[2],
 		# 													filename,
 		# 													backend), 'w')
-		self.f = open('logs/{}/{}/{}_{}.csv'.format(sys.argv[1],
-															sys.argv[2],
+		self.f = open('logs/aws/{}/{}_{}.csv'.format(sys.argv[1],
 															filename,
 															backend), 'w')
 		self.log_writer = csv.writer(self.f)
