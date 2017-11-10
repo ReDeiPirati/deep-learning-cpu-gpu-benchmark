@@ -15,16 +15,22 @@ class EpochStatsLogger(Callback):
 	def __init__(self):
 		# Log Contains the performance output (CSV) for each test.
 		# Create Log folder whit platforms subfolders, if not exist
-		if not os.path.exists('/output/logs'):
-			os.makedirs('/output/logs')
+		#if not os.path.exists('/output/logs'):
+		if not os.path.exists('logs'):
+			#os.makedirs('/output/logs')
+			os.makedirs('logs')
 
 		# sys.argv[1] = platform (cpu, gpu)
-		if not os.path.exists('/output/logs/{}'.format(sys.argv[1])):
-			os.makedirs('/output/logs/{}'.format(sys.argv[1]))
+		#if not os.path.exists('/output/logs/{}'.format(sys.argv[1])):
+			#os.makedirs('/output/logs/{}'.format(sys.argv[1]))
+		if not os.path.exists('logs/{}'.format(sys.argv[1])):
+			os.makedirs('logs/{}'.format(sys.argv[1]))
 
 		# sys.argv[2] = platform (fh, aws, gce)
-		if not os.path.exists('/output/logs/{}/{}'.format(sys.argv[2])):
-			os.makedirs('/output/logs/{}/{}'.format(sys.argv[2]))
+		# if not os.path.exists('/output/logs/{}/{}'.format(sys.argv[2])):
+		# 	os.makedirs('/output/logs/{}/{}'.format(sys.argv[2]))
+		if not os.path.exists('logs/{}/{}'.format(sys.argv[2])):
+			os.makedirs('logs/{}/{}'.format(sys.argv[2]))
 
 	"""Log stats during training"""
 	def on_train_begin(self, logs={}):
@@ -33,7 +39,11 @@ class EpochStatsLogger(Callback):
 		filename = os.path.basename(sys.argv[0])[:-3]
 		backend = K.backend()
 		# Save Log in the /output folder(FH spec)
-		self.f = open('/output/logs/{}/{}/{}_{}.csv'.format(sys.argv[1],
+		# self.f = open('/output/logs/{}/{}/{}_{}.csv'.format(sys.argv[1],
+		# 													sys.argv[2],
+		# 													filename,
+		# 													backend), 'w')
+		self.f = open('logs/{}/{}/{}_{}.csv'.format(sys.argv[1],
 															sys.argv[2],
 															filename,
 															backend), 'w')
