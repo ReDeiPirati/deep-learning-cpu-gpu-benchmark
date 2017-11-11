@@ -12,9 +12,10 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
+import sys
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()  # Logger
+logger = EpochStatsLogger(sys.argv[2])  # Logger
 
 # Hyper-parameters
 batch_size = 128

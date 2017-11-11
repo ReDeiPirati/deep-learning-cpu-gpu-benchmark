@@ -12,6 +12,7 @@ Results on IMDB datasets with uni and bi-gram embeddings:
 
 from __future__ import print_function
 import numpy as np
+import sys
 
 from keras.preprocessing import sequence
 from keras.models import Sequential
@@ -21,7 +22,7 @@ from keras.layers import GlobalAveragePooling1D
 from keras.datasets import imdb
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()  # Logger
+logger = EpochStatsLogger(sys.argv[2])  # Logger
 
 
 def create_ngram_set(input_list, ngram_value=2):

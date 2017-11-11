@@ -1,6 +1,6 @@
 """
 Launcher Script for benchmarking FloydHub Service(gpu and cpu) on:
-
+Env: TF 1.3 - Keras 2.0.6
 (Must be logged in on FH to run this)
 
 - MLP on MNIST
@@ -34,7 +34,7 @@ for test_file in test_files:
 		# "python test/script (cpu|gpu) fh"
 		command = floyd_cmd + \
 			" --{p} --message {m} ".format(p=platform, m=message) + \
-			"python test_files/{} {} fh".format(test_file, platform)
+			"python test_files/{} {} {}".format(test_file, platform, "fh")
 
 		# Command to run
 		print(command)

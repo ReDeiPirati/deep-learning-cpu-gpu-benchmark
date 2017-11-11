@@ -12,9 +12,10 @@ from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import RMSprop
+import sys
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()  # Logger
+logger = EpochStatsLogger(sys.argv[2])  # Logger
 
 # Hyper-parameters
 batch_size = 128

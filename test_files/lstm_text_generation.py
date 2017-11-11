@@ -21,7 +21,7 @@ import random
 import sys
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()  # Logger
+logger = EpochStatsLogger(sys.argv[2])  # Logger
 
 
 path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')

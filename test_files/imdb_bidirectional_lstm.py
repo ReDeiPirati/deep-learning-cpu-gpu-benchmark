@@ -6,6 +6,7 @@ Time per epoch on CPU (Core i7): ~150s.
 
 from __future__ import print_function
 import numpy as np
+import sys
 
 from keras.preprocessing import sequence
 from keras.models import Sequential
@@ -13,7 +14,7 @@ from keras.layers import Dense, Dropout, Embedding, LSTM, Bidirectional
 from keras.datasets import imdb
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()  # Logger
+logger = EpochStatsLogger(sys.argv[2])  # Logger
 
 
 # Hyper-parameters

@@ -6,6 +6,7 @@ It gets down to 0.65 test logloss in 25 epochs, and down to 0.55 after 50 epochs
 
 from __future__ import print_function
 import keras
+import sys
 from keras.datasets import cifar10
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
@@ -13,7 +14,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger()  # Logger
+logger = EpochStatsLogger(sys.argv[2])  # Logger
 
 # Hyper-parameters
 batch_size = 32

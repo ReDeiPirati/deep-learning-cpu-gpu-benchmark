@@ -6,6 +6,8 @@ Repository to benchmark the performance of Cloud CPUs vs. Cloud GPUs on TensorFl
 
 `floydhub_keras_cpu_gpu_benchmark.py` contains the launcher script for running the complete benchmark on FH. (You have to be logged on FloydHub before you run it)
 
+`aws_gce_keras_cpu_gpu_benchmark.py [aws|gce]` contains the launcher script for running the complete benchmark on AWS or GCE. *Note: you must specifies the cloud service name as a script parameters.**
+
 `/test_files` contains the test files.
 
 `/logs` contains the performance output (CSV) for each test.
