@@ -14,8 +14,12 @@ import os
 import subprocess
 import sys
 
-# Platform Available on AWS
-PLATFORM_TYPE = ["gpu"]
+# TODO Add Runs parameter
+RUNS = 2
+
+# Platform Available on AWS|GCE
+# TODO Add Platform parameter
+PLATFORM_TYPE = ["gpu"]  # ["cpu", "gpu", "cpu2", "gpu2"]
 
 cloud_service_name = sys.argv[1]
 if sys.argv[1] != "aws" and sys.argv[1] != "gce":
@@ -23,6 +27,7 @@ if sys.argv[1] != "aws" and sys.argv[1] != "gce":
 	exit(-1)
 
 # Test file script list
+# TODO Add File parameter
 test_files = [f for f in os.listdir("test_files") if f.endswith('.py')]
 test_files.remove('CustomCallback.py')  # exclude the Logger Class
 
@@ -30,12 +35,13 @@ test_files.remove('CustomCallback.py')  # exclude the Logger Class
 for test_file in test_files:
 	# Run the same script for different platform
 	for platform in PLATFORM_TYPE:
-		# Command Template
-		# floyd run --env .. --(gpu|cpu) --message testfile_plat
-		# "python test/script (cpu|gpu) aws"
-		command = "python test_files/{} {} {}".format(test_file, platform, cloud_service_name)
+		# Set number of Runs in bath executions
+		for i in range(RUNS):
+			# Command Template
+			# "python test/script (cpu|gpu) [aws|gce] <current_run>"
+			command = "python test_files/{} {} {} {}".format(test_file, platform, cloud_service_name, i+1) # i starts from zero
 
-		# Command to run
-		print(command)
-		# Wait until the end of the subprocess
-		subprocess.call(command.split(), shell=False)  # Safe
+			# Command to run
+			print("CMD => ", command)
+			# Wait until the end of the subprocess
+			subprocess.call(command.split(), shell=False)  # Safe

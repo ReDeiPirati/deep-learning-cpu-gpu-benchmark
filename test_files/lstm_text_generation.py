@@ -21,7 +21,7 @@ import random
 import sys
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger(sys.argv[2])  # Logger
+logger = EpochStatsLogger(sys.argv[2], sys.argv[3])  # Logger(cloud_service_name, current_run)
 
 
 path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')

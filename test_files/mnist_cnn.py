@@ -15,7 +15,7 @@ from keras import backend as K
 import sys
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger(sys.argv[2])  # Logger
+logger = EpochStatsLogger(sys.argv[2], sys.argv[3])  # Logger(cloud_service_name, current_run)
 
 # Hyper-parameters
 batch_size = 128

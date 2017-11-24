@@ -22,7 +22,7 @@ from keras.layers import GlobalAveragePooling1D
 from keras.datasets import imdb
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger(sys.argv[2])  # Logger
+logger = EpochStatsLogger(sys.argv[2], sys.argv[3])  # Logger(cloud_service_name, current_run)
 
 
 def create_ngram_set(input_list, ngram_value=2):

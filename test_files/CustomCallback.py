@@ -12,8 +12,9 @@ from keras.callbacks import Callback
 
 
 class EpochStatsLogger(Callback):
-	def __init__(self, cloud_service):
+	def __init__(self, cloud_service, run):
 		self.cloud_service = cloud_service
+		self.run = run
 		# Log Contains the performance output (CSV) for each test.
 		# Create Log folder whit platforms subfolders, if not exist
 		if self.cloud_service == "fh":
@@ -50,15 +51,17 @@ class EpochStatsLogger(Callback):
 		filename = os.path.basename(sys.argv[0])[:-3]
 		backend = K.backend()
 		if self.cloud_service == "fh":
-			self.f = open('/output/logs/{}/{}/{}_{}.csv'.format(self.cloud_service,
+			self.f = open('/output/logs/{}/{}/{}_{}_run_{}.csv'.format(self.cloud_service,
 																sys.argv[1],
 																filename,
-																backend), 'w')
+																backend,
+																self.run), 'w')
 		else:  # AWS and GCE
-			self.f = open('logs/{}/{}/{}_{}.csv'.format(self.cloud_service,
+			self.f = open('logs/{}/{}/{}_{}_run_{}.csv'.format(self.cloud_service,
 																sys.argv[1],
 																filename,
-																backend), 'w')
+																backend,
+																self.run), 'w')
 		self.log_writer = csv.writer(self.f)
 		self.log_writer.writerow(['epoch', 'elapsed', 'loss',
 								'acc', 'val_loss', 'val_acc'])

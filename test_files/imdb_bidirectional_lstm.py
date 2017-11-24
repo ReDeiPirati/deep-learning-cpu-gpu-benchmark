@@ -14,7 +14,7 @@ from keras.layers import Dense, Dropout, Embedding, LSTM, Bidirectional
 from keras.datasets import imdb
 
 from CustomCallback import EpochStatsLogger
-logger = EpochStatsLogger(sys.argv[2])  # Logger
+logger = EpochStatsLogger(sys.argv[2], sys.argv[3])  # Logger(cloud_service_name, current_run)
 
 
 # Hyper-parameters
