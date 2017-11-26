@@ -13,15 +13,23 @@ Env: TF 1.4 - Keras 2.0.6
 
 import os
 import subprocess
+import argparse
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument("--dev", help="use floyd-dev",
+                    action="store_true")
+parser.add_argument("--runs",
+                        dest="runs", default=1, type=int,
+                        help="numbers of benchmark runs")
+args = parser.parse_args()
 
 # TODO Add Runs parameter
-RUNS = 2
+RUNS = args.runs
 
 # Platform Available on FH
 # TODO Add Platform parameter
 PLATFORM_TYPE = ["cpu", "gpu", "cpu2", "gpu2"]
-#PLATFORM_TYPE = ["cpu"]
-
+# PLATFORM_TYPE = ["cpu"]
 
 # Test file script list
 # TODO Add File parameter
@@ -29,9 +37,11 @@ test_files = [f for f in os.listdir("test_files") if f.endswith('.py')]
 test_files.remove('CustomCallback.py')  # exclude the Logger Class
 
 # Prepare Floyd commands
-# TODO Add floyd-dev  parameter
-floyd_cmd = "floyd-dev run --env tensorflow-1.4 "
-#floyd_cmd = "floyd run --env tensorflow-1.4 "
+# Use dev endpoint?
+if args.dev:
+	floyd_cmd = "floyd-dev run --env tensorflow-1.4 "
+else:
+	floyd_cmd = "floyd run --env tensorflow-1.4 "
 
 # Test Launcher
 for test_file in test_files:
@@ -52,7 +62,7 @@ for test_file in test_files:
 				"python test_files/{} {} {} {}; done".format(test_file, platform, "fh", "$r")
 
 			# Command to run
-			print("CMD => ", command)
+			print("\nCMD => " + command)
 			subprocess.call(command.split(), shell=False)  # Safe
 
 			# TODO: Monitoring status to launch new concurrent jobs and keep the queue full
