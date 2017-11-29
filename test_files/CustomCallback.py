@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """
 Class Logger during training.
 Export stats in a csv log file.

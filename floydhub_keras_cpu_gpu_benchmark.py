@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """
 Launcher Script for benchmarking FloydHub Service(gpu and cpu) on:
 Env: TF 1.4 - Keras 2.0.6

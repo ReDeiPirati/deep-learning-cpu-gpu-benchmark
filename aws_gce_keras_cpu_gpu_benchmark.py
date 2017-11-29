@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """
 Launcher Script for benchmarking AWS Service(gpu) on:
 Env: TF 1.3 - Keras 2.0.6
