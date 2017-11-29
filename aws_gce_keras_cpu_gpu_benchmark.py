@@ -13,17 +13,36 @@ Env: TF 1.3 - Keras 2.0.6
 import os
 import subprocess
 import sys
+import argparse
 
-# TODO Add Runs parameter
-RUNS = 2
+parser = argparse.ArgumentParser(description='Benchmark script')
+parser.add_argument("--aws", help="use aws",
+                    action="store_true")
+parser.add_argument("--gce", help="use gce",
+                    action="store_true")
+parser.add_argument("--runs",
+                        dest="runs", default=1, type=int,
+                        help="numbers of benchmark runs")
+args = parser.parse_args()
+
+# Runs parameter
+RUNS = args.runs
 
 # Platform Available on AWS|GCE
 # TODO Add Platform parameter
 PLATFORM_TYPE = ["gpu"]  # ["cpu", "gpu", "cpu2", "gpu2"]
 
-cloud_service_name = sys.argv[1]
-if sys.argv[1] != "aws" and sys.argv[1] != "gce":
-	print ("Provide aws or gce as param.")
+if args.aws and args.gce:
+	print ("provide only one platform")
+	exit(-1)
+elif args.aws:
+	print ("using AWS instance")
+	cloud_service_name = "aws"
+elif args.gce:
+	print ("using GCE instance")
+	cloud_service_name = "gce"
+else:
+	print ("You have to specify --aws or --gce")
 	exit(-1)
 
 # Test file script list

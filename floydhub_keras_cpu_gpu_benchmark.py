@@ -15,7 +15,7 @@ import os
 import subprocess
 import argparse
 
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser(description='Benchmark script')
 parser.add_argument("--dev", help="use floyd-dev",
                     action="store_true")
 parser.add_argument("--runs",
@@ -45,25 +45,25 @@ else:
 
 # Test Launcher
 for test_file in test_files:
-	if test_file.startswith("mnist_mlp"):
-		# Run the same script for different platform
-		for platform in PLATFORM_TYPE:
-			# Help in Web dashboard visualization
-			message = "{}_{}_runs_{}".format(test_file[:-3], platform, RUNS)
-			# Multiple RUNS
-			loop_cmd = "for r in $(seq {});do ".format(RUNS)
-			# Command Template
-			# floyd run --env .. --(gpu|cpu) --message testfile_plat
-			# 'for r in $(seq RUNS); do
-			# python test/script (cpu|gpu) fh <current_run>; done'
-			command = floyd_cmd + \
-				"--{p} --message {m} ".format(p=platform, m=message) + \
-				loop_cmd + \
-				"python test_files/{} {} {} {}; done".format(test_file, platform, "fh", "$r")
+	#if test_file.startswith("lstm"):
+	# Run the same script for different platform
+	for platform in PLATFORM_TYPE:
+		# Help in Web dashboard visualization
+		message = "{}_{}_runs_{}".format(test_file[:-3], platform, RUNS)
+		# Multiple RUNS
+		loop_cmd = "for r in $(seq {});do ".format(RUNS)
+		# Command Template
+		# floyd run --env .. --(gpu|cpu) --message testfile_plat
+		# 'for r in $(seq RUNS); do
+		# python test/script (cpu|gpu) fh <current_run>; done'
+		command = floyd_cmd + \
+			"--{p} --message {m} ".format(p=platform, m=message) + \
+			loop_cmd + \
+			"python test_files/{} {} {} {}; done".format(test_file, platform, "fh", "$r")
 
-			# Command to run
-			print("\nCMD => " + command)
-			subprocess.call(command.split(), shell=False)  # Safe
+		# Command to run
+		print("\nCMD => " + command)
+		subprocess.call(command.split(), shell=False)  # Safe
 
-			# TODO: Monitoring status to launch new concurrent jobs and keep the queue full
-			# TODO: auto csv-log retrieval after jobs ending.
+		# TODO: Monitoring status to launch new concurrent jobs and keep the queue full
+		# TODO: auto csv-log retrieval after jobs ending.
