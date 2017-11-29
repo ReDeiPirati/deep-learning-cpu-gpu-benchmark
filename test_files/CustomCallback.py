@@ -41,9 +41,9 @@ class EpochStatsLogger(Callback):
 
 			logdir = 'logs/{}/{}'.format(self.cloud_service, sys.argv[1])
 			# Delete existing csv
-			filelist = [f for f in os.listdir(logdir) if f.endswith(".csv")]
-			for f in filelist:
-				os.remove(os.path.join(logdir, f))
+			#filelist = [f for f in os.listdir(logdir) if f.endswith(".csv")]
+			#for f in filelist:
+			#	os.remove(os.path.join(logdir, f))
 
 	"""Log stats during training"""
 	def on_train_begin(self, logs={}):
