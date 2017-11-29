@@ -61,6 +61,9 @@ model.add(LSTM(128, input_shape=(maxlen, len(chars)), implementation=2))
 model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
+# Print the model
+model.summary()
+
 # CEE, RMSprop
 optimizer = RMSprop(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)

@@ -133,6 +133,9 @@ model.add(GlobalAveragePooling1D())
 # We project onto a single unit output layer, and squash it with a sigmoid:
 model.add(Dense(1, activation='sigmoid'))
 
+# Print the model
+model.summary()
+
 # BCEE, ADAM
 model.compile(loss='binary_crossentropy',
               optimizer='adam',

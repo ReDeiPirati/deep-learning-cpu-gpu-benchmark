@@ -50,6 +50,7 @@ model.add(Dense(512, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(10, activation='softmax'))
 
+# Print the model
 model.summary()
 
 # CEE, RMSprop
